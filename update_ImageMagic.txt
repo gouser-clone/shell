@@ -1,0 +1,30 @@
+tar -zxvf ImageMagick-6.9.10.tar.gz
+cd ImageMagick-6.9.10
+mkdir -p /usr/local/lib/ImageMagick-6.9.10
+./configure --prefix=/usr/local/lib/ImageMagick-6.9.10/
+make && make install 
+
+/*复制6.9.10版本的.so文件到之前的目录*/
+cd /usr/local/lib/ImageMagick-6.9.10/lib 
+cp libMagick++-6.Q16.so.8.0.0 ../../
+cp libMagickCore-6.Q16.so.6.0.0 ../../
+cp libMagickWand-6.Q16.so.6.0.0 ../../
+cd ../../
+
+/*修改原有的软连接,把原有的软连接指向新的.so文件*/ 
+ln -snf libMagick++-6.Q16.so.8.0.0 libMagick++-6.Q16.so.3
+ln -snf libMagick++-6.Q16.so.8.0.0 libMagick++-6.Q16.so
+ln -snf libMagickCore-6.Q16.so.6.0.0 libMagickCore-6.Q16.so.2
+ln -snf libMagickCore-6.Q16.so.6.0.0 libMagickCore-6.Q16.so
+ln -snf libMagickWand-6.Q16.so.6.0.0 libMagickWand-6.Q16.so.2
+ln -snf libMagickWand-6.Q16.so.6.0.0 libMagickWand-6.Q16.so
+/*把之前的.so文件移走，不删除，方便以后回退*/
+mv libMagick++-6.Q16.so.3.0.0 libMagickCore-6.Q16.so.2.0.0 libMagickWand-6.Q16.so.2.0.0 ./ImageMagick-6.8.8/
+ldconfig
+convert --version
+/*出现如下，说明uodate 成功*/
+Version: ImageMagick 6.9.10-20 Q16 x86_64 2019-01-17 https://imagemagick.org
+Copyright: © 1999-2019 ImageMagick Studio LLC
+License: https://imagemagick.org/script/license.php
+Features: Cipher DPC OpenMP
+Delegates (built-in): jpeg zlib
