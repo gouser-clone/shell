@@ -6,7 +6,7 @@ MYSQL_DB='*****'
 MYSQL_PORT='*****'
 COMMAND="mysql -h${MYSQL_HOST} -P${MYSQL_PORT} -u${MYSQL_USER} -p${MYSQL_PASSWD} ${MYSQL_DB}"
 
-
+//* * * * * sh -x /home/oicq/wb/sync_data_svr/tools/wb_note.sh > /home/oicq/wb/note.log 2>&1 & 
 //注释里的是可以手动执行的，但是，在cron 是报错的
 /*
 while read -a row
